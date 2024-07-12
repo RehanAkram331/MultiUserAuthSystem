@@ -7,9 +7,15 @@ use App\Models\ClassModel;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\AuthService;
 
 class CourseEnrollController extends Controller
 {
+    protected $authService;
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +24,9 @@ class CourseEnrollController extends Controller
     public function index()
     {
         if(Auth::guard('student')->check()){
+            $user=Auth::guard('student')->user();
             $courseEnrollments = CourseEnroll::with(['class', 'student'])
-                                ->where('student_id', Auth::user()->id)
+                                ->where('student_id', $user->id)
                                 ->get();
         }else{
             $courseEnrollments = CourseEnroll::with(['class', 'student'])->get();
@@ -56,7 +63,7 @@ class CourseEnrollController extends Controller
             //'status' => 'required|in:Active,Inactive',
         ]);
 
-        $data['student_id']=Auth::user()->id;
+        $data['student_id']= $this->authService->getAuthenticatedUser()->id;
 
 
         // Check if the enrollment already exists

@@ -2,14 +2,15 @@
 
 @section('content')
     <div class="container">
-        <h1>Course Enrollments</h1>
+        
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
+        <h1 class="text-center mt-5 mb-2">Course Enrollments</h1>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>#</th>

@@ -16,16 +16,7 @@
             <!-- Right Side Of Navbar -->
             <ul class="ml-auto navbar-nav">
                 <!-- Authentication Links -->
-                @guest
-                    <li class="nav-item">
-                        {{-- <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a> --}}
-                    </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            {{-- <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a> --}}
-                        </li>
-                    @endif
-                @else
+
                     @if(Auth::guard('web')->check())
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
@@ -37,7 +28,7 @@
                             <a class="nav-link" href="{{ route('create') }}">Add User</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
+                            <a class="nav-link" href="{{ route('admin') }}">Admin</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('teacher') }}">Teacher</a>
@@ -54,6 +45,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('course-enrollments.index') }}">Enrollmented Course</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                        </li>
                     @elseif(Auth::guard('teacher')->check())
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('teacher.dashboard') }}">Dashboard</a>
@@ -63,6 +60,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('classes.index') }}">Classes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
                         </li>
                     @elseif(Auth::guard('student')->check())
                         <li class="nav-item">
@@ -77,14 +80,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('student.classes') }}">Classes</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                        </li>
                     @endif
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
-                    </li>
-                @endguest
+
             </ul>
         </div>
     </div>

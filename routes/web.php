@@ -25,7 +25,6 @@ Route::middleware(['auth:web','2fa'])->prefix('admin')->name('admin.')->group(fu
     Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
     Route::get('/profile/edit', [AdminController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile', [AdminController::class, 'updateProfile'])->name('profile.update');
-    Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::post('/course-enrollments/active/{id}', [CourseEnrollController::class, 'active'])->name('course-enrollments.avtive');
 });
 
@@ -38,6 +37,8 @@ Route::middleware(['auth:web','2fa'])->prefix('user')->name('user.')->group(func
 });
 
 Route::middleware(['auth:web','2fa'])->group(function () {
+    
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::get('/create', [AdminController::class, 'create'])->name('create');
     Route::get('/student', [StudentController::class, 'index'])->name('student');
     Route::get('/teacher', [TeacherController::class, 'index'])->name('teacher');    

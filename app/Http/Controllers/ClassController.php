@@ -7,18 +7,30 @@ use App\Models\ClassModel; // Replace with your actual model name
 use App\Models\Teacher;
 use App\Models\Course;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Auth;
 class ClassController extends Controller
 {
     public function index()
     {
+        if (Auth::guard('teacher')->check()) {
+            $user=Auth::guard('teacher')->user();
+            $classes = ClassModel::with('teacher', 'course')->where('teacher_id',$user->id)->get();
+        }else{
+            $classes = ClassModel::with('teacher', 'course')->get();
+        }
         $classes = ClassModel::with('teacher', 'course')->get();
         return view('classes.index', compact('classes'));
     }
 
     public function create()
     {
-        $teachers = Teacher::all();
+        if (Auth::guard('teacher')->check()) {
+            $user=Auth::guard('teacher')->user();
+            $teachers = Teacher::where('id',$user->id)->get();
+        }else{
+            $teachers = Teacher::all();
+        }
+        
         $courses = Course::all();
         return view('classes.create', compact('teachers', 'courses'));
     }

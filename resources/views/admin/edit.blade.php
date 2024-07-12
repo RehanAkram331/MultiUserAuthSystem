@@ -66,7 +66,7 @@
                         <label for="profile_picture" class="form-label">Profile Picture:</label>
                         <input class="form-control" type="file" name="profile_picture" id="profile_picture">
                         @if ($user->profile_picture)
-                            <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" width="100">
+                            <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture" width="150">
                         @endif
                         @error('profile_picture')
                             <span class="text-danger">{{ $message }}</span>
