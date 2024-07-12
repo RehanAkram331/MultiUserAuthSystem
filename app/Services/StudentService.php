@@ -11,11 +11,6 @@ use App\Services\AdminService;
 
 class StudentService
 {
-    protected $adminService;
-    public function __construct(AdminService $adminService)
-    {        
-        $this->adminService = $adminService;
-    }
     public function getDashboardData()
     {
         $courseEnrollments = CourseEnroll::with(['class', 'student'])
@@ -36,7 +31,7 @@ class StudentService
         }
 
         if (!empty($data['profile_picture'])) {
-            $name = $this->adminService->storeProfilePicture($data['profile_picture']);
+            $name = $this->storeProfilePicture($data['profile_picture']);
             $student->profile_picture = $name;
         }
 
@@ -53,6 +48,15 @@ class StudentService
             'bio' => $data['bio'],
             'profile_picture'=>array_key_exists("profile_picture",$data)?$data['profile_picture']:null
         ]);
+    }
+
+    public function storeProfilePicture($data){
+        $file = $data;
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $destinationPath = public_path('/storage/profile_pictures');
+        $file->move($destinationPath, $filename);
+        //$file->storeAs('profile_pictures', $filename, 'public');
+        return $filename;
     }
 
 }
