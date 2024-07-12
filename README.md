@@ -6,24 +6,26 @@ MultiUserAuth System is a comprehensive web application designed for educational
 ## Features
 - Multi-User Authentication
     - Roles: Admin, Teacher, Student
-Two-Factor Authentication (2FA)
-User Management
-CRUD operations
-Profile management
-Activity logging
-Course and Class Management
-CRUD operations for courses and classes
-Enrollment management
-Dashboard
-Overview of classes, teachers, and courses
-Technologies Used
-Framework: Laravel 8
-Authentication: Laravel's built-in authentication, Two-Factor Authentication (2FA) using Google2FA
-Database: MySQL
-Frontend: Blade templates, Bootstrap
-Activity Logging: Spatie Laravel Activitylog
-Installation
-Clone the repository:
+    - Two-Factor Authentication (2FA)
+- User Management
+    - CRUD operations
+    - Profile management
+    - Activity logging
+- Course and Class Management
+    - CRUD operations for courses and classes
+    - Enrollment management
+- Dashboard
+    - Overview of classes, teachers, and courses
+      
+## Technologies Used
+- Framework: Laravel 11
+- Authentication: Laravel's built-in authentication, Two-Factor Authentication (2FA) using Google2FA
+- Database: MySQL
+- Frontend: Blade templates, Bootstrap
+- Activity Logging: Spatie Laravel Activitylog
+  
+## Installation
+- Clone the repository:
 
 sh
 Copy code
