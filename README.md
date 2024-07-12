@@ -33,7 +33,7 @@ MultiUserAuth System is a comprehensive web application designed for educational
      composer install
     
 ### Set up the environment: Copy .env.example to .env and update the necessary environment variables, including database credentials and mail configuration.
-    cp .env.example .env
+    copy .env.example .env
     
 ### Generate application key:
     php artisan key:generate
