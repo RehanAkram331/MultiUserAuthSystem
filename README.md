@@ -1,3 +1,5 @@
+# MultiUserAuthSystem
+ Multi-User Authentication and Profile Management in Laravel Application
 #MultiUserAuth System
 ##Overview
 MultiUserAuth System is a comprehensive web application designed for educational institutions to manage multiple user roles (admin, teacher, student) with robust authentication and management features. It includes two-factor authentication, user profile management, activity logging, and CRUD operations for classes and courses.
