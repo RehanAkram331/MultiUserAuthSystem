@@ -192,8 +192,8 @@ class AdminService
     public function storeProfilePicture($data){
         $file = $data;
         $filename = time() . '.' . $file->getClientOriginalExtension();
-        //$destinationPath = public_path('/storage/profile_pictures');
-        //$file->move($destinationPath, $filename);
+        $destinationPath = public_path('/storage/profile_pictures');
+        $file->move($destinationPath, $filename);
         //$file->storeAs('profile_pictures', $filename, 'public');
         return $filename;
     }
