@@ -54,6 +54,19 @@ MultiUserAuth System is a comprehensive web application designed for educational
 
 - Navigate through the dashboard to manage users, courses, and classes.
 ### Routes:
+    use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\AdminController;
+    use App\Http\Controllers\StudentController;
+    use App\Http\Controllers\TeacherController;
+    use App\Http\Controllers\AdminProfileController;
+    use App\Http\Controllers\StudentProfileController;
+    use App\Http\Controllers\TeacherProfileController;
+    use App\Http\Controllers\TwoFactorController;
+    use App\Http\Controllers\CourseController;
+    use App\Http\Controllers\ClassController;
+    use App\Http\Controllers\CourseEnrollController;
+
     Route::middleware('guest')->group(function () {
         Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
         Route::post('login', [AuthController::class, 'login']);
@@ -121,44 +134,73 @@ MultiUserAuth System is a comprehensive web application designed for educational
 ### AuthService.php Example
 
     namespace App\Services;    
-    use Illuminate\Support\Facades\Auth;    
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
+    use App\Models\User;
+    use App\Models\Student;
+    use App\Models\Teacher;
+    
     class AuthService
     {
-        public function getAuthenticatedUser()
-        {
-            return Auth::user();
-        }
-    
-        public function attemptLogin($request)
+        public function attemptLogin(Request $request)
         {
             $credentials = $request->only('email', 'password');
-            if (Auth::attempt($credentials)) {
-                return Auth::user();
+            $user = null;
+    
+            if (Auth::guard('web')->attempt($credentials)) {
+                $user = Auth::guard('web')->user();
+            } elseif (Auth::guard('student')->attempt($credentials)) {
+                $user = Auth::guard('student')->user();
+            } elseif (Auth::guard('teacher')->attempt($credentials)) {
+                $user = Auth::guard('teacher')->user();
             }
-            return null;
+    
+            if ($user) {
+                $request->session()->regenerate();
+                $request->session()->put('role', $this->getUserRole($user));
+    
+                return $user;
+            }
+            return false;
+        }
+    
+        public function getAuthenticatedUser()
+        {
+            if (Auth::guard('web')->check()) {
+                return Auth::guard('web')->user();
+            } elseif (Auth::guard('student')->check()) {
+                return Auth::guard('student')->user();
+            } elseif (Auth::guard('teacher')->check()) {
+                return Auth::guard('teacher')->user();
+            }
+    
+            return Auth::user();
         }
     
         public function redirectTo($user)
         {
-            if ($user->is_admin) {
-                return redirect()->route('admin.dashboard');
-            } elseif ($user->is_teacher) {
-                return redirect()->route('teacher.dashboard');
-            } else {
-                return redirect()->route('student.dashboard');
+            if ($user instanceof User) {
+                return '/admin/dashboard';
+            } elseif ($user instanceof Student) {
+                return '/student/dashboard';
+            } elseif ($user instanceof Teacher) {
+                return '/teacher/dashboard';
+            }
+        }
+    
+        protected function getUserRole($user)
+        {
+            if ($user instanceof User) {
+                return 'admin';
+            } elseif ($user instanceof Student) {
+                return 'student';
+            } elseif ($user instanceof Teacher) {
+                return 'teacher';
             }
         }
     }
-Testing
-Run the test suite:
-sh
-Copy code
-php artisan test
-Contribution
-Fork the repository.
-Create a new branch (feature/your-feature).
-Commit your changes.
-Push to the branch.
-Create a new Pull Request.
-License
-This project is licensed under the MIT License.
+    
+## Testing
+### Run the test suite:
+    php artisan test
+
