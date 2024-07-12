@@ -25,37 +25,28 @@ MultiUserAuth System is a comprehensive web application designed for educational
 - Activity Logging: Spatie Laravel Activitylog
   
 ## Installation
-- Clone the repository: git clone [https://github.com/your-repo/MultiUserAuth.git](https://github.com/RehanAkram331/MultiUserAuthSystem.git)
-cd MultiUserAuth
-Install dependencies:
+- Clone the repository:
+    - git clone https://github.com/RehanAkram331/MultiUserAuthSystem.git
+    - cd MultiUserAuthSystem
 
-sh
-Copy code
-composer install
-npm install
-npm run dev
-Set up the environment:
+### Install dependencies:
+     composer install
+     npm install
+     npm run dev
+    
+### Set up the environment: Copy .env.example to .env and update the necessary environment variables, including database credentials and mail configuration.
+    cp .env.example .env
+    
+### Generate application key:
+    php artisan key:generate
 
-Copy .env.example to .env and update the necessary environment variables, including database credentials and mail configuration.
-sh
-Copy code
-cp .env.example .env
-Generate application key:
-
-sh
-Copy code
-php artisan key:generate
-Run migrations and seeders:
-
-sh
-Copy code
-php artisan migrate --seed
-Serve the application:
-
-sh
-Copy code
-php artisan serve
-Usage
+### Run migrations and seeders:
+    php artisan migrate --seed
+    
+### Serve the application:
+    php artisan serve
+    
+## Usage
 Access the application via the browser at http://localhost:8000.
 Login using the default admin credentials provided by the seeder.
 Navigate through the dashboard to manage users, courses, and classes.
