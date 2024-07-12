@@ -7,9 +7,16 @@ use App\Models\ClassModel;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Services\AdminService;
 
 class TeacherService
 {
+    protected $adminService;
+    public function __construct(AdminService $adminService)
+    {        
+        $this->adminService = $adminService;
+    }
+
     public function getDashboardData()
     {
         $classes = ClassModel::with(['course', 'students'])
@@ -28,8 +35,8 @@ class TeacherService
         }
 
         if (!empty($data['profile_picture'])) {
-            $path = $data['profile_picture']->store('profile_pictures', 'public');
-            $teacher->profile_picture = $path;
+            $name = $this->adminService->storeProfilePicture($data['profile_picture']);;
+            $teacher->profile_picture = $name;
         }
 
         $teacher->bio = $data['bio'];

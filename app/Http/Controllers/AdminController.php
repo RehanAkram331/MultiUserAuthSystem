@@ -60,10 +60,7 @@ class AdminController extends Controller
         ]);
 
         if ($request->hasFile('profile_picture')) {
-            $file = $request->file('profile_picture');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('profile_pictures', $filename, 'public');
-            $data['profile_picture'] = $filename;
+            $data['profile_picture'] = $this->adminService->storeProfilePicture($request->file('profile_picture'));
         }
 
         // Use the UserService to create the user
@@ -103,8 +100,7 @@ class AdminController extends Controller
         ]);
 
         if ($request->hasFile('profile_picture')) {
-            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-            $data['profile_picture'] = $path;
+            $data['profile_picture'] = $this->adminService->storeProfilePicture($request->file('profile_picture'));
         }
 
         $this->adminService->UpdateUser($data, $id);

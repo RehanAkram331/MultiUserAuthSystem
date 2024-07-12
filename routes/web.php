@@ -67,7 +67,7 @@ Route::middleware('auth.multiple:web,teacher,student')->group(function () {
     Route::post('2fa/disable', [TwoFactorController::class, 'disableTwoFactor'])->name('2fa.disable');
     Route::get('2fa/verify', [AuthController::class, 'show2FAVerifyForm'])->name('2fa.verify');
     Route::post('2fa/verify', [AuthController::class, 'verify2FA']);
-    Route::post('/check', )->name('user.check');
+    Route::post('/check',  [AdminController::class, 'check'])->name('user.check');
 });
 
 Route::middleware(['auth.multiple:web,student','2fa'])->group(function () {

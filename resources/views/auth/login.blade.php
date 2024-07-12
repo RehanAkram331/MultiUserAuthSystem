@@ -7,6 +7,7 @@
                 {{ session('success') }}
             </div>
         @endif
+       
         <h1 class="text-center mt-5 pt-5">Login</h1>
         <div class="row">
             <form action="{{ route('login') }}" method="POST">
@@ -26,18 +27,20 @@
                     <div class="col-auto text-center">
                         <button type="submit"  class="btn btn-primary px-4 py-2">Login</button>
                     </div>
+                    <div class="col-auto text-center">
+                        @if ($errors->any())
+                        <div>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <p class="text-danger">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    </div>
                 </div>
             </form>
         </div>
-        @if ($errors->any())
-            <div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
     </div>
 @endsection
 

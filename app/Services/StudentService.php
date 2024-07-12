@@ -7,9 +7,15 @@ use App\Models\CourseEnroll;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Services\AdminService;
 
 class StudentService
 {
+    protected $adminService;
+    public function __construct(AdminService $adminService)
+    {        
+        $this->adminService = $adminService;
+    }
     public function getDashboardData()
     {
         $courseEnrollments = CourseEnroll::with(['class', 'student'])
@@ -30,8 +36,8 @@ class StudentService
         }
 
         if (!empty($data['profile_picture'])) {
-            $path = $data['profile_picture']->store('profile_pictures', 'public');
-            $student->profile_picture = $path;
+            $name = $this->adminService->storeProfilePicture($data['profile_picture']);
+            $student->profile_picture = $name;
         }
 
         $student->bio = $data['bio'];

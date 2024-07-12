@@ -37,8 +37,7 @@ class AdminService
         }
 
         if (!empty($data['profile_picture'])) {
-            $path = $data['profile_picture']->store('profile_pictures', 'public');
-            $user->profile_picture = $path;
+            $user->profile_picture = $this->storeProfilePicture($data['profile_picture']);
         }
 
         $user->bio = $data['bio'];
@@ -188,6 +187,15 @@ class AdminService
         $user->google2fa_secret = null;
         $user->google2fa_enabled = false;
         $user->save();
+    }
+
+    public function storeProfilePicture($data){
+        $file = $data;
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        //$destinationPath = public_path('/storage/profile_pictures');
+        //$file->move($destinationPath, $filename);
+        //$file->storeAs('profile_pictures', $filename, 'public');
+        return $filename;
     }
 
 }

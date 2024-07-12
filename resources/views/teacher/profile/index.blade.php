@@ -7,7 +7,7 @@
             <div class="col-md-6 offset-md-3">
                 <div class="mb-3 text-center">
                     @if ($user->profile_picture)
-                        <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" width="50%">
+                        <img src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}" alt="Profile Picture" width="50%">
                     @endif
                     @error('profile_picture')
                         <span class="text-danger">{{ $message }}</span>
