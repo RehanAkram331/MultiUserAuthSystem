@@ -1,9 +1,9 @@
-MultiUserAuth System
-Overview
+#MultiUserAuth System
+##Overview
 MultiUserAuth System is a comprehensive web application designed for educational institutions to manage multiple user roles (admin, teacher, student) with robust authentication and management features. It includes two-factor authentication, user profile management, activity logging, and CRUD operations for classes and courses.
 
-Features
-Multi-User Authentication
+##Features
+-Multi-User Authentication
 Roles: Admin, Teacher, Student
 Two-Factor Authentication (2FA)
 User Management
