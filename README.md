@@ -31,8 +31,6 @@ MultiUserAuth System is a comprehensive web application designed for educational
 
 ### Install dependencies:
      composer install
-     npm install
-     npm run dev
     
 ### Set up the environment: Copy .env.example to .env and update the necessary environment variables, including database credentials and mail configuration.
     cp .env.example .env
