@@ -25,11 +25,7 @@ MultiUserAuth System is a comprehensive web application designed for educational
 - Activity Logging: Spatie Laravel Activitylog
   
 ## Installation
-- Clone the repository:
-
-sh
-Copy code
-git clone https://github.com/your-repo/MultiUserAuth.git
+- Clone the repository: git clone [https://github.com/your-repo/MultiUserAuth.git](https://github.com/RehanAkram331/MultiUserAuthSystem.git)
 cd MultiUserAuth
 Install dependencies:
 
